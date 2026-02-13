@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For You ❤️</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            font-family: 'Poppins', sans-serif;
+            overflow-x: hidden;
+            background-attachment: fixed;
+        }
+
+        /* Floating Hearts Background */
+        .hearts-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            overflow: hidden;
+            z-index: 0;
+        }
+
+        .heart {
+            position: absolute;
+            font-size: 20px;
+            animation: floatUp 4s ease-in infinite;
+            opacity: 0;
+        }
+
+        @keyframes floatUp {
+            0% {
+                opacity: 0;
+                transform: translateY(100vh) rotate(0deg);
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(-100vh) rotate(720deg);
+            }
+        }
+
+        /* Page Styles - FIXED FOR SCROLLING */
+        .page {
+            position: relative;
+            width: 100%;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 40px 20px;
+            transition: all 0.8s ease;
+            z-index: 1;
+        }
+
+        .page.hidden {
+            display: none;
+        }
+
+        /* Page 1 - Opening */
+        #page1 {
+            background: transparent;
+        }
+
+        .envelope {
+            width: 280px;
+            height: 200px;
+            background: linear-gradient(145deg, #ff6b6b, #ee5a5a);
+            border-radius: 10px;
+            position: relative;
+            box-shadow: 0 20px 60px rgba(255, 107, 107, 0.4);
+            animation: pulse 2s ease-in-out infinite;
+            margin-bottom: 40px;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .envelope::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0;
+            height: 0;
+            border-left: 140px solid transparent;
+            border-right: 140px solid transparent;
+            border-top: 100px solid #ff8787;
+        }
+
+        .envelope::after {
+            content: '💌';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 60px;
+        }
+
+        .message-intro {
+            color: #fff;
+            font-size: 28px;
+            text-align: center;
+            margin-bottom: 30px;
+            font-family: 'Dancing Script', cursive;
+            text-shadow: 2px 2px 10px rgba(0,0,0,0.3);
+            animation: fadeInDown 1s ease;
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .open-btn {
+            background: linear-gradient(145deg, #ff6b6b, #ff8e8e);
+            color: white;
+            border: none;
+            padding: 18px 50px;
+            font-size: 20px;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 10px 40px rgba(255, 107, 107, 0.5);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .open-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 50px rgba(255, 107, 107, 0.7);
+        }
+
+        .open-btn:active {
+            transform: translateY(-2px);
+        }
+
+        .open-btn::after {
+            content: '💝';
+            margin-left: 10px;
+        }
+
+        /* Page 2 - Love Letter - FIXED FOR SCROLLING */
+        #page2 {
+            background: transparent;
+            padding: 60px 20px;
+            min-height: auto;
+            animation: fadeIn 1s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        .letter-container {
+            max-width: 600px;
+            width: 100%;
+            margin: 0 auto;
+            animation: unfold 1s ease;
+        }
+
+        @keyframes unfold {
+            from {
+                opacity: 0;
+                transform: rotateX(-90deg);
+            }
+            to {
+                opacity: 1;
+                transform: rotateX(0);
+            }
+        }
+
+        .letter {
+            background: linear-gradient(145deg, #fff9f9, #fff0f0);
+            padding: 50px 40px;
+            border-radius: 20px;
+            box-shadow: 0 25px 80px rgba(0, 0, 0, 0.3);
+            position: relative;
+            border: 3px solid #ffcdd2;
+            margin-bottom: 40px;
+        }
+
+        .letter::before {
+            content: '❤️';
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 40px;
+            animation: heartbeat 1s ease-in-out infinite;
+        }
+
+        @keyframes heartbeat {
+            0%, 100% { transform: translateX(-50%) scale(1); }
+            50% { transform: translateX(-50%) scale(1.2); }
+        }
+
+        .letter-title {
+            font-family: 'Dancing Script', cursive;
+            font-size: 42px;
+            color: #e74c3c;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .letter-content {
+            font-size: 18px;
+            line-height: 2;
+            color: #555;
+            text-align: center;
+        }
+
+        .letter-content p {
+            margin-bottom: 20px;
+        }
+
+        .signature {
+            font-family: 'Dancing Script', cursive;
+            font-size: 32px;
+            color: #e74c3c;
+            text-align: right;
+            margin-top: 30px;
+        }
+
+        .hearts-decoration {
+            text-align: center;
+            font-size: 30px;
+            margin: 20px 0;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        /* Sparkles */
+        .sparkle {
+            position: fixed;
+            pointer-events: none;
+            font-size: 20px;
+            animation: sparkle 1s ease forwards;
+            z-index: 1000;
+        }
+
+        @keyframes sparkle {
+            0% {
+                opacity: 1;
+                transform: scale(0) rotate(0deg);
+            }
+            50% {
+                opacity: 1;
+                transform: scale(1) rotate(180deg);
+            }
+            100% {
+                opacity: 0;
+                transform: scale(0.5) rotate(360deg);
+            }
+        }
+
+        /* Back to top button */
+        .scroll-hint {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: rgba(255, 107, 107, 0.9);
+            color: white;
+            padding: 12px 20px;
+            border-radius: 30px;
+            font-size: 14px;
+            animation: bounce 2s infinite;
+            z-index: 100;
+            cursor: pointer;
+            display: none;
+        }
+
+        .scroll-hint.show {
+            display: block;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            .message-intro {
+                font-size: 22px;
+            }
+            .letter {
+                padding: 40px 25px;
+            }
+            .letter-title {
+                font-size: 32px;
+            }
+            .letter-content {
+                font-size: 16px;
+            }
+            .envelope {
+                width: 220px;
+                height: 160px;
+            }
+            .envelope::before {
+                border-left: 110px solid transparent;
+                border-right: 110px solid transparent;
+                border-top: 80px solid #ff8787;
+            }
+            .scroll-hint {
+                bottom: 20px;
+                right: 20px;
+                padding: 10px 16px;
+                font-size: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Floating Hearts Background -->
+    <div class="hearts-container" id="heartsContainer"></div>
+
+    <!-- Page 1: Opening -->
+    <div class="page" id="page1">
+        <div class="envelope"></div>
+        <h1 class="message-intro">I have something to say to you... 💕</h1>
+        <button class="open-btn" onclick="openLetter()">Open</button>
+    </div>
+
+    <!-- Page 2: Love Letter -->
+    <div class="page hidden" id="page2">
+        <div class="letter-container">
+            <div class="letter">
+                <h1 class="letter-title">My Dearest Love</h1>
+                
+                <div class="hearts-decoration">💕 💖 💕</div>
+                
+                <div class="letter-content">
+                    <p>
+                        From the moment you came into my life, everything changed. 
+                        You brought colors to my world that I never knew existed.
+                    </p>
+                    
+                    <p>
+                        Every moment with you feels like a beautiful dream that I never want to wake up from. 
+                        Your smile lights up my darkest days, and your love gives me strength.
+                    </p>
+                    
+                    <p>
+                        You are my best friend, my soulmate, and my everything. 
+                        I fall in love with you more and more each day.
+                    </p>
+                    
+                    <p>
+                        Your laugh is my favorite sound in the world, and your happiness is my life's mission.
+                        When I look into your eyes, I see my whole world reflected back at me.
+                    </p>
+
+                    <p>
+                        Through every sunrise and sunset, through every season that passes,
+                        my love for you only grows stronger and deeper.
+                    </p>
+
+                    <p>
+                        You make me want to be a better person every single day.
+                        Your kindness, your warmth, your beautiful soul - everything about you amazes me.
+                    </p>
+                    
+                    <p>
+                        Thank you for being you, for loving me, and for making my life so incredibly special.
+                        I promise to love you, cherish you, and stand by you always.
+                    </p>
+
+                    <p>
+                        <strong>I love you more than words could ever express! 💝</strong>
+                    </p>
+
+                    <p>
+                        You are my today and all of my tomorrows. You are my always and forever.
+                    </p>
+                </div>
+                
+                <div class="hearts-decoration">🌹 ❤️ 🌹</div>
+                
+                <div class="signature">
+                    Forever Yours,<br>
+                    With All My Love ❤️
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scroll hint -->
+    <div class="scroll-hint" id="scrollHint" onclick="scrollToTop()">
+        Back to Top ↑
+    </div>
+
+    <script>
+        // Create floating hearts
+        function createHearts() {
+            const container = document.getElementById('heartsContainer');
+            const hearts = ['❤️', '💕', '💖', '💗', '💓', '💝', '💘'];
+            
+            setInterval(() => {
+                const heart = document.createElement('div');
+                heart.className = 'heart';
+                heart.innerHTML = hearts[Math.floor(Math.random() * hearts.length)];
+                heart.style.left = Math.random() * 100 + 'vw';
+                heart.style.animationDuration = (Math.random() * 3 + 3) + 's';
+                heart.style.fontSize = (Math.random() * 20 + 15) + 'px';
+                container.appendChild(heart);
+                
+                setTimeout(() => {
+                    heart.remove();
+                }, 6000);
+            }, 300);
+        }
+
+        // Create sparkle effect on click
+        function createSparkle(x, y) {
+            const sparkles = ['✨', '💫', '⭐', '💖'];
+            for (let i = 0; i < 8; i++) {
+                const sparkle = document.createElement('div');
+                sparkle.className = 'sparkle';
+                sparkle.innerHTML = sparkles[Math.floor(Math.random() * sparkles.length)];
+                sparkle.style.left = (x + (Math.random() - 0.5) * 100) + 'px';
+                sparkle.style.top = (y + (Math.random() - 0.5) * 100) + 'px';
+                document.body.appendChild(sparkle);
+                
+                setTimeout(() => sparkle.remove(), 1000);
+            }
+        }
+
+        // Open letter function
+        function openLetter() {
+            createSparkle(window.innerWidth / 2, window.innerHeight / 2);
+            
+            setTimeout(() => {
+                document.getElementById('page1').classList.add('hidden');
+                document.getElementById('page2').classList.remove('hidden');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }, 300);
+        }
+
+        // Scroll to top
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Show/hide scroll hint
+        window.addEventListener('scroll', () => {
+            const scrollHint = document.getElementById('scrollHint');
+            const page2 = document.getElementById('page2');
+            
+            if (!page2.classList.contains('hidden') && window.scrollY > 200) {
+                scrollHint.classList.add('show');
+            } else {
+                scrollHint.classList.remove('show');
+            }
+        });
+
+        // Add click sparkle effect
+        document.addEventListener('click', (e) => {
+            createSparkle(e.clientX, e.clientY);
+        });
+
+        // Initialize
+        createHearts();
+    </script>
+</body>
+</html>
